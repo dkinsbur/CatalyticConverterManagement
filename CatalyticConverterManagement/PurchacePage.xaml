@@ -20,12 +20,18 @@
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <GroupBox Header="Exchange Rate" Grid.Row="2" DataContext="{Binding Path=Exchange}">
-                <Grid>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Purchase Date</TextBlock>
+                <DatePicker Margin="5" SelectedDate="{Binding Date}"></DatePicker>
+            </StackPanel>
+            
+                <DataGrid Grid.Row="2" Margin="5"></DataGrid>
+            
+            <Grid Grid.Row="1">
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="Grid.Column" Value="0"></Setter>
@@ -57,11 +63,30 @@
                     <TextBox Grid.Row="2"></TextBox>
                     <TextBox Grid.Row="3"></TextBox>
                 </Grid>
-            </GroupBox>
         </Grid>
-        <GroupBox Grid.Column="1" Header="{Binding Path=Converter, ElementName=Name}">
-            <local:ConverterControl  DataContext="{Binding Path=Converter}"></local:ConverterControl>
-        </GroupBox>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="3" MinWidth="75" MinHeight="75">+</Button>
+                        <Button Margin="3" Padding="2">+ 10</Button>
+                    </StackPanel>
+                    <TextBox Margin="3" Width="100" Height="30"></TextBox>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="3" MinWidth="75" MinHeight="75">-</Button>
+                        <Button Margin="3" Padding="2">- 10</Button>
+                    </StackPanel>
+                    <Button Margin="5" Padding="2" HorizontalAlignment="Center" Height="50" Width="130">Add</Button>
+                    
+                </StackPanel>
+            </Grid>
+            <local:ConverterControl Grid.Row="1" DataContext="{Binding Path=Converter}"></local:ConverterControl>
+            
+        </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

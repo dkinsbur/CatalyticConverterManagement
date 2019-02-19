@@ -61,8 +61,9 @@ namespace CatalyticConverterManagement
             };
 
             //this.DataContext = new MainWindowViewModel(b, false);//new AnalysisControlViewModel(a, false);
-            this.Content = new PurchacePage();
             InitializeComponent();
+            this.Content = new PurchacePage();
+
         }
     }
 }
