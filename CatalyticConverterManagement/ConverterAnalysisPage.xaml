@@ -1,0 +1,26 @@
+﻿<Page x:Class="CatalyticConverterManagement.ConverterAnalysisPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CatalyticConverterManagement"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="ConverterAnalysisPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <local:ConverterControl Grid.RowSpan="2" Grid.Column="0" DataContext="{Binding Path=Converter}" BorderBrush="Black" BorderThickness="1" Margin="5"></local:ConverterControl>
+        <StackPanel Grid.Column="1">
+            <local:AnalysisControl DataContext="{Binding Path=Analysis}"  BorderBrush="Black" BorderThickness="1" Margin="5" VerticalAlignment="Top"></local:AnalysisControl>
+            <ScrollBar Margin="5" Maximum="{Binding Path=AnalysisMax}" Value="{Binding Mode=OneWayToSource, Path=AnalysisIndex}" Orientation="Horizontal" Background="{x:Null}" SmallChange="1"></ScrollBar>
+        </StackPanel>
+    </Grid>
+</Page>

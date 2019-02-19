@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="CatalyticConverterManagement.AnalysisControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CatalyticConverterManagement"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="IsEnabled" Value="{Binding Path=CanEdit}"></Setter>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" >AnalysisNum</TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1"   Text="{Binding Path=AnalysisNum}"></TextBox>
+        <TextBlock Grid.Row="1" Grid.Column="0" >Platinum</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1"   Text="{Binding Path=Platinum}"></TextBox>
+        <TextBlock Grid.Row="2" Grid.Column="0" >Palladium</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1"   Text="{Binding Path=Palladium}"></TextBox>
+        <TextBlock Grid.Row="3" Grid.Column="0" >Rhodium</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1"   Text="{Binding Path=Rhodium}"></TextBox>
+        <TextBlock Grid.Row="4" Grid.Column="0" >Weight</TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="1"   Text="{Binding Path=Weight}"></TextBox>
+        <TextBlock Grid.Row="5" Grid.Column="0" ># of Samples</TextBlock>
+        <TextBox Grid.Row="5" Grid.Column="1"   Text="{Binding Path=NumOfSamples}"></TextBox>
+    </Grid>
+    
+</UserControl>
