@@ -28,9 +28,16 @@
                 <TextBlock VerticalAlignment="Center">Purchase Date</TextBlock>
                 <DatePicker Margin="5" SelectedDate="{Binding Date}"></DatePicker>
             </StackPanel>
-            
-                <DataGrid Grid.Row="2" Margin="5"></DataGrid>
-            
+
+            <ListView Name="lstPurchase" Grid.Row="2" Margin="5" >
+                <ListView.View>
+                    <GridView x:Name="grdNames">
+                        <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Converter.FullName}"/>
+                        <GridViewColumn Header="Whole"  DisplayMemberBinding="{Binding Count}"/>
+                        <GridViewColumn Header="Half"  DisplayMemberBinding="{Binding HalfCount}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
             <Grid Grid.Row="1">
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
@@ -70,28 +77,36 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid>
-                <StackPanel Orientation="Vertical">
-                    <ComboBox x:Name="cb" Width="150" Height="30"  ItemsSource="{Binding Converters}" DisplayMemberPath="FullName">
-                        <ComboBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ComboBox.ItemsPanel>
-                    </ComboBox>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBox Name="tbSearch" GotFocus="tbSearch_GotFocus" TextChanged="TextBox_TextChanged" KeyUp="TextBox_KeyUp" />
+                <ListBox Name="list" Grid.Row="1"  Height="200" ItemsSource="{Binding Converters}" 
+                         DisplayMemberPath="FullName" KeyUp="list_KeyUp">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+                <StackPanel Grid.Row="2" Orientation="Vertical">
+
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock VerticalAlignment="Center">Whole: </TextBlock>
-                        <TextBox Margin="3" Width="100" Height="30"></TextBox>
+                        <TextBox Name="tbWhole" Margin="3" Width="100" Height="30" KeyUp="tbWhole_KeyUp"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock VerticalAlignment="Center">Half: </TextBlock>
-                        <TextBox Margin="3" Width="100" Height="30"></TextBox>
+                        <TextBox Name="tbHalf" Margin="3" Width="100" Height="30" KeyUp="tbHalf_KeyUp"></TextBox>
 
                     </StackPanel>
-                    <Button Margin="5" Padding="2" HorizontalAlignment="Center" Height="50" Width="130">Add</Button>
+                    <Button Name="btnAdd" Click="btnAdd_Click" Margin="5" Padding="2" HorizontalAlignment="Center" Height="50" Width="130">Add</Button>
                     
                 </StackPanel>
             </Grid>
-            <local:ConverterControl Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=cb}"></local:ConverterControl>
+            <local:ConverterControl x:Name="ctrlConv" Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=list}"></local:ConverterControl>
             
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" >
@@ -110,7 +125,7 @@
             <Button Grid.Column="0" HorizontalAlignment="Left">Save</Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
             <Button >Create Report</Button>
-            <Button >Exit</Button>
+            <!--<Button >Exit</Button>-->
             </StackPanel>
         </Grid>
     </Grid>
