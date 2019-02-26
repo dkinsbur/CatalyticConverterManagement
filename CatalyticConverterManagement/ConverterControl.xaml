@@ -14,12 +14,14 @@
             <Setter Property="HorizontalAlignment" Value="Right"></Setter>
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="IsEnabled" Value="{Binding Path=CanEdit}"></Setter>
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
         <Style TargetType="ComboBox">
-            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="IsEnabled" Value="{Binding Path=CanEdit}"></Setter>
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
@@ -40,7 +42,11 @@
         <TextBlock Grid.Row="1" Grid.Column="0">Model</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Model}"></TextBox>
         <TextBlock Grid.Row="2" Grid.Column="0">Catagory</TextBlock>
-        <ComboBox Grid.Row="2" Grid.Column="1" ></ComboBox>
+        <ComboBox Grid.Row="2" Grid.Column="1" 
+                  DisplayMemberPath="DisplayName"
+          ItemsSource="{local:EnumToItemsSource {x:Type local:ConverterCategory}}"
+          SelectedValue="{Binding Path=Category}"
+          SelectedValuePath="Value"></ComboBox>
         <Border  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="1" Margin="5">
             <Image  Grid.Column="0" Source="{Binding Path=ImagePath}"></Image>
         </Border>

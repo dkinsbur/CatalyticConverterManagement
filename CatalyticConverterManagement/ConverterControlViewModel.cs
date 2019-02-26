@@ -4,21 +4,40 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Markup;
 
 namespace CatalyticConverterManagement
 {
+    public class EnumToItemsSource : MarkupExtension
+    {
+        private readonly Type _type;
+
+        public EnumToItemsSource(Type type)
+        {
+            _type = type;
+        }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return Enum.GetValues(_type)
+                .Cast<object>()
+                .Select(e => new { Value = e, DisplayName = e.ToString() });
+        }
+    }
+
     class ConverterControlViewModel
     {
         private Converter _converter;
+        private bool _editable;
 
-        
         public ConverterControlViewModel(Converter converter, bool editable)
         {
             _converter = converter;
+            _editable = editable;
         }
 
 
+        public bool CanEdit { get { return _editable; }  }
         public String Company { get { return _converter.Company; } set { } }
         public String Model { get { return _converter.Model; } set { } }
         public ConverterCategory Category { get { return _converter.Category; } set { } }
