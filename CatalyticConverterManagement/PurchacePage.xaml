@@ -71,20 +71,27 @@
             </Grid.RowDefinitions>
             <Grid>
                 <StackPanel Orientation="Vertical">
+                    <ComboBox x:Name="cb" Width="150" Height="30"  ItemsSource="{Binding Converters}" DisplayMemberPath="FullName">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="3" MinWidth="75" MinHeight="75">+</Button>
-                        <Button Margin="3" Padding="2">+ 10</Button>
+                        <TextBlock VerticalAlignment="Center">Whole: </TextBlock>
+                        <TextBox Margin="3" Width="100" Height="30"></TextBox>
                     </StackPanel>
-                    <TextBox Margin="3" Width="100" Height="30"></TextBox>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="3" MinWidth="75" MinHeight="75">-</Button>
-                        <Button Margin="3" Padding="2">- 10</Button>
+                        <TextBlock VerticalAlignment="Center">Half: </TextBlock>
+                        <TextBox Margin="3" Width="100" Height="30"></TextBox>
+
                     </StackPanel>
                     <Button Margin="5" Padding="2" HorizontalAlignment="Center" Height="50" Width="130">Add</Button>
                     
                 </StackPanel>
             </Grid>
-            <local:ConverterControl Grid.Row="1" DataContext="{Binding Path=Converter}"></local:ConverterControl>
+            <local:ConverterControl Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=cb}"></local:ConverterControl>
             
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" >

@@ -19,30 +19,41 @@ namespace CatalyticConverterManagement
         Beads = 8,
     }
 
-    public class Analysis
+    public class DataBaseItem
     {
         public UInt32 ID { get; set; }
-        public UInt32 AnalysisNum { get; set; } // parts per milion - grams per kilo
-        public UInt32 Platinum { get; set; } // parts per milion - grams per kilo
-
-        public UInt32 Palladium { get; set; }
-
-        public UInt32 Rhodium { get; set; }
-
-        public Double Weight { get; set; } // . weight - kilo
-
-        public UInt32 NumOfSamples { get; set; }
     }
 
-    public class Converter
+    public class Analysis : DataBaseItem
     {
-        public UInt32 ID { get; set; }
+        public int AnalysisNum;
+        public int Platinum ; // parts per milion - grams per kilo
+        public int Palladium ;
+        public int Rhodium ;
+        public double Weight ; // . weight - kilo
+        public int NumOfSamples ;
+        public Converter Converter ;
+    }
+
+    public class Converter : DataBaseItem
+    {
         public String Company { get; set; }
         public String Model { get; set; } // Description
         public ConverterCategory Category { get; set; }
         public List<Analysis> Analysis { get; set; }
-
         public String ImagePath;
 
+        public string FullName
+        {
+            get
+            {
+                return string.Format("{0} - {1}", Company, Model);
+            }
+        }
+
+        public Converter()
+        {
+            Analysis = new List<CatalyticConverterManagement.Analysis>();
+        }
     }
 }

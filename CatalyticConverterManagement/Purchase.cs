@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace CatalyticConverterManagement
 {
-    
-    class PurchaseEntry
+    public class PurchaseEntry
     {
-        private UInt32 ID { get; set; }
-
-
+        public Converter Converter{ get; set; }
+        public int Count{ get; set; }
+        public int HalfCount{ get; set; }
+        public bool ManualPriceSet{ get; set; }
+        public double ManualPrice { get; set; }
+        public double Factor{ get; set; }
     }
-
-    public class Purchase
+    
+    public class Purchase : DataBaseItem
     {
-        private UInt32 ID { get; set; }
-
         public UInt32 PlatinumPrice { get; set; }
 
         public UInt32 PalladiumPrice { get; set; }
@@ -26,10 +26,9 @@ namespace CatalyticConverterManagement
 
         public Double DollarToShekel { get; set; }
 
-        private  List<PurchaseEntry> Entries { get; set; }
+        public Double EuroToShekel { get; set; }
 
-        
-
+        private List<PurchaseEntry> Entries { get; set; }
 
     }
 }

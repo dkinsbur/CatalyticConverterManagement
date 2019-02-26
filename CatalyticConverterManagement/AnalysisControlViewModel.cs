@@ -22,7 +22,7 @@ namespace CatalyticConverterManagement
             }
         }
 
-        public uint Platinum
+        public int Platinum
         {
             get
             {
@@ -34,7 +34,7 @@ namespace CatalyticConverterManagement
             }
         }
 
-        public uint Palladium
+        public int Palladium
         {
             get
             {
@@ -46,7 +46,7 @@ namespace CatalyticConverterManagement
             }
         }
 
-        public uint Rhodium
+        public int Rhodium
         {
             get
             {
@@ -69,7 +69,7 @@ namespace CatalyticConverterManagement
                 this._analysis.Weight = value;
             }
         }
-        public uint NumOfSamples
+        public int NumOfSamples
         {
             get
             {
