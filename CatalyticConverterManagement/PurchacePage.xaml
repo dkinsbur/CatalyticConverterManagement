@@ -82,7 +82,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBox Name="tbSearch" GotFocus="tbSearch_GotFocus" TextChanged="TextBox_TextChanged" KeyUp="TextBox_KeyUp" />
+                <TextBox Name="tbSearch" GotFocus="GotFocus" TextChanged="TextBox_TextChanged" KeyUp="TextBox_KeyUp" />
                 <ListBox Name="list" Grid.Row="1"  Height="200" ItemsSource="{Binding Converters}" 
                          DisplayMemberPath="FullName" KeyUp="list_KeyUp">
                     <ListBox.ItemsPanel>
@@ -95,11 +95,11 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock VerticalAlignment="Center">Whole: </TextBlock>
-                        <TextBox Name="tbWhole" Margin="3" Width="100" Height="30" KeyUp="tbWhole_KeyUp"></TextBox>
+                        <TextBox GotFocus="GotFocus" Name="tbWhole" Margin="3" Width="100" Height="30" KeyUp="tbWhole_KeyUp"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock VerticalAlignment="Center">Half: </TextBlock>
-                        <TextBox Name="tbHalf" Margin="3" Width="100" Height="30" KeyUp="tbHalf_KeyUp"></TextBox>
+                        <TextBox GotFocus="GotFocus" Name="tbHalf" Margin="3" Width="100" Height="30" KeyUp="tbHalf_KeyUp"></TextBox>
 
                     </StackPanel>
                     <Button Name="btnAdd" Click="btnAdd_Click" Margin="5" Padding="2" HorizontalAlignment="Center" Height="50" Width="130">Add</Button>

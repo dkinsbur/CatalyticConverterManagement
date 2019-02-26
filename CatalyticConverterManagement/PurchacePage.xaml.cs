@@ -55,7 +55,10 @@ namespace CatalyticConverterManagement
                 }
                 else
                 {
-                    tbWhole.Focus();
+                    if (list.SelectedItem != null)
+                    {
+                        tbWhole.Focus();
+                    }
                 }
             }
             else if (e.Key == Key.Up)
@@ -79,7 +82,14 @@ namespace CatalyticConverterManagement
         {
             if (e.Key == Key.Enter)
             {
-                tbHalf.Focus();
+                if (waitForEnterRelease)
+                {
+                    waitForEnterRelease = false;
+                }
+                else
+                {
+                    tbHalf.Focus();
+                }
             }
         }
 
@@ -87,7 +97,14 @@ namespace CatalyticConverterManagement
         {
             if (e.Key == Key.Enter)
             {
-                btnAdd.Focus();
+                if (waitForEnterRelease)
+                {
+                    waitForEnterRelease = false;
+                }
+                else
+                {
+                    btnAdd.Focus();
+                }
             }
         }
 
@@ -104,6 +121,8 @@ namespace CatalyticConverterManagement
             var conv = (ctrlConv.DataContext as Converter);
             if (conv == null)
             {
+                tbSearch.Focus();
+
                 return;
             }
 
@@ -116,6 +135,7 @@ namespace CatalyticConverterManagement
                 if(!int.TryParse(txtWhole, out whole))
                 {
                     MessageBox.Show(string.Format("Bad Whole Value '{0}' ", txtWhole), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    tbWhole.Focus();
                     return;
                 }
             }
@@ -124,19 +144,21 @@ namespace CatalyticConverterManagement
                 if (!int.TryParse(txtHalf, out half))
                 {
                     MessageBox.Show(string.Format("Bad Whole Value '{0}' ", txtHalf), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    tbHalf.Focus();
                     return;
                 }
             }
-            PurchaseList.Add(new PurchaseEntry() { Converter = conv, ManualPriceSet = false, Count = whole, HalfCount = half });
+            PurchaseList.Insert(0,new PurchaseEntry() { Converter = conv, ManualPriceSet = false, Count = whole, HalfCount = half });
             tbSearch.Text = "";
             tbWhole.Text = "";
             tbHalf.Text = "";
+            list.SelectedItem = null;
             tbSearch.Focus();
         }
 
         bool waitForEnterRelease = false;
 
-        private void tbSearch_GotFocus(object sender, RoutedEventArgs e)
+        private void GotFocus(object sender, RoutedEventArgs e)
         {
             if(Keyboard.IsKeyDown( Key.Enter))
             {
