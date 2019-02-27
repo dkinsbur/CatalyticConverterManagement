@@ -1,3 +1,5 @@
 CatalyticConverterManagement/bin/* 
 CatalyticConverterManagement/obj/* 
+DbConverter/bin/* 
+DbConverter/obj/* 
 .vs/* 
