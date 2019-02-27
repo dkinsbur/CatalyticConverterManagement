@@ -71,8 +71,6 @@ namespace DbConverter
         [Name("ConverterId")]
         public int ConverterId { get; set; }
     }
-
-
     public class ConverterDataBaseItem
     {
         [Name("Id")]

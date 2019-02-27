@@ -58,17 +58,20 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0">Pt</TextBlock>
                     <TextBlock Grid.Row="1">Pd</TextBlock>
                     <TextBlock Grid.Row="2">Rh</TextBlock>
-                    <TextBlock Grid.Row="3">$/NIS</TextBlock>
-                    <TextBox Grid.Row="0"></TextBox>
-                    <TextBox Grid.Row="1"></TextBox>
-                    <TextBox Grid.Row="2"></TextBox>
-                    <TextBox Grid.Row="3"></TextBox>
+                <TextBlock Grid.Row="3">$/NIS</TextBlock>
+                <TextBlock Grid.Row="4">Euro/NIS</TextBlock>
+                <TextBox Grid.Row="0" Text="{Binding Mode=TwoWay, Path=Pt}"></TextBox>
+                <TextBox Grid.Row="1" Text="{Binding Mode=TwoWay, Path=Pd}"></TextBox>
+                <TextBox Grid.Row="2" Text="{Binding Mode=TwoWay, Path=Rh}"></TextBox>
+                <TextBox Grid.Row="3" Text="{Binding Mode=TwoWay, Path=DollarExchange}"></TextBox>
+                <TextBox Grid.Row="4" Text="{Binding Mode=TwoWay, Path=EuroExchange}"></TextBox>
                 </Grid>
         </Grid>
         <Grid Grid.Column="1">

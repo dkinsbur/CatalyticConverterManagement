@@ -42,7 +42,20 @@ namespace CatalyticConverterManagement
         public String Model { get { return _converter.Model; } set { } }
         public ConverterCategory Category { get { return _converter.Category; } set { } }
 
-        public String ImagePath { get { return _converter.ImagePath; } set { } }
+        public String ImagePath
+        {
+            get
+            {
+                var img = _converter.Images.FirstOrDefault();
+                if (img == null)
+                {
+                    return null;
+                }
+
+                return img.ImagePath;
+            }
+            set { }
+        }
     }
 
     class MainWindowViewModel : INotifyPropertyChanged

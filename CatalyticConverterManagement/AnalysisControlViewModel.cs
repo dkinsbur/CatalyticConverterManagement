@@ -22,7 +22,7 @@ namespace CatalyticConverterManagement
             }
         }
 
-        public int Platinum
+        public double Platinum
         {
             get
             {
@@ -30,11 +30,11 @@ namespace CatalyticConverterManagement
             }
             set
             {
-                this._analysis.Platinum = value;
+                //this._analysis.Platinum = value;
             }
         }
 
-        public int Palladium
+        public double Palladium
         {
             get
             {
@@ -42,11 +42,11 @@ namespace CatalyticConverterManagement
             }
             set
             {
-                this._analysis.Palladium = value;
+                //this._analysis.Palladium = value;
             }
         }
 
-        public int Rhodium
+        public double Rhodium
         {
             get
             {
@@ -54,7 +54,7 @@ namespace CatalyticConverterManagement
             }
             set
             {
-                this._analysis.Rhodium = value;
+                //this._analysis.Rhodium = value;
             }
         }
 
@@ -66,7 +66,7 @@ namespace CatalyticConverterManagement
             }
             set
             {
-                this._analysis.Weight = value;
+                //this._analysis.Weight = value;
             }
         }
         public int NumOfSamples
@@ -77,7 +77,7 @@ namespace CatalyticConverterManagement
             }
             set
             {
-                this._analysis.NumOfSamples = value;
+                //this._analysis.NumOfSamples = value;
             }
         }
 

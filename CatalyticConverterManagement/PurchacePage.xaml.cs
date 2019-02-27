@@ -1,7 +1,11 @@
-﻿using System;
+﻿using CsvHelper;
+using CsvHelper.Configuration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,13 +28,15 @@ namespace CatalyticConverterManagement
     {
         public PurchacePage()
         {
-            var db = new TempDataBase(@"db.csv");
+            //var db = new TempDataBase(@"db.csv");
+            //db.Load();
+
+            var db = new DataBaseWrapper(new DataBase("converters.csv", "analysis.csv", "images.csv"));
             db.Load();
-            //DisplayMemberPath="FullName"
 
             InitializeComponent();
 
-            DataContext = new PurchacePageViewModel(db.GetConverters());
+            DataContext = new PurchacePageViewModel(db.Converters.Values.ToList());
 
             PurchaseList = new ObservableCollection<PurchaseEntry>();
             lstPurchase.ItemsSource = PurchaseList;
@@ -209,5 +215,20 @@ namespace CatalyticConverterManagement
             return true;
         }
         public ICollectionView Converters { get { return _converters; } }
+
+        public DateTime Date
+        {
+            get
+            {
+                return date;
+            }
+
+            set
+            {
+                date = value;
+            }
+        }
+
+        private DateTime date = DateTime.Today;
     }
 }
