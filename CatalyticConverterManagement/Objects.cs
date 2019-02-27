@@ -9,26 +9,37 @@ namespace CatalyticConverterManagement
     public class PurchaseEntry
     {
         public Converter Converter { get; set; }
-        public int Count { get; set; }
+        public int WholeCount { get; set; }
         public int HalfCount { get; set; }
         public bool ManualPriceSet { get; set; }
         public double ManualPrice { get; set; }
         public double Factor { get; set; }
+
+        public PurchaseEntry()
+        {
+            Factor = 1;
+            ManualPriceSet = false;
+        }
     }
 
     public class Purchase
     {
-        public UInt32 PlatinumPrice { get; set; }
+        public double PlatinumPrice { get; set; }
 
-        public UInt32 PalladiumPrice { get; set; }
+        public double PalladiumPrice { get; set; }
 
-        public UInt32 RhodiumPrice { get; set; }
+        public double RhodiumPrice { get; set; }
 
-        public Double DollarToShekel { get; set; }
+        public double DollarToShekel { get; set; }
 
-        public Double EuroToShekel { get; set; }
+        public double EuroToShekel { get; set; }
 
-        private List<PurchaseEntry> Entries { get; set; }
+        public List<PurchaseEntry> Entries { get; set; }
+
+        public Purchase()
+        {
+            Entries = new List<CatalyticConverterManagement.PurchaseEntry>();
+        }
 
     }
 

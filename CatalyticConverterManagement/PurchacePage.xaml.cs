@@ -35,16 +35,14 @@ namespace CatalyticConverterManagement
             db.Load();
 
             InitializeComponent();
+            var purchase = new Purchase();
+            DataContext = new PurchacePageViewModel(db.Converters.Values.ToList(), purchase);
 
-            DataContext = new PurchacePageViewModel(db.Converters.Values.ToList());
-
-            PurchaseList = new ObservableCollection<PurchaseEntry>();
-            lstPurchase.ItemsSource = PurchaseList;
+            //PurchaseList = new ObservableCollection<PurchaseEntry>();
             tbSearch.Focus();
 
         }
 
-        public ObservableCollection<PurchaseEntry> PurchaseList;
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             (DataContext as PurchacePageViewModel).UpdateFilter((sender as TextBox).Text);
@@ -124,6 +122,7 @@ namespace CatalyticConverterManagement
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            var vm = DataContext as PurchacePageViewModel;
             var conv = (ctrlConv.DataContext as Converter);
             if (conv == null)
             {
@@ -132,13 +131,13 @@ namespace CatalyticConverterManagement
                 return;
             }
 
-            int whole = 0;
-            int half = 0;
+            uint whole = 0;
+            uint half = 0;
             var txtWhole = tbWhole.Text.Trim();
             var txtHalf = tbHalf.Text.Trim();
             if (txtWhole != "")
             {
-                if(!int.TryParse(txtWhole, out whole))
+                if(!uint.TryParse(txtWhole, out whole))
                 {
                     MessageBox.Show(string.Format("Bad Whole Value '{0}' ", txtWhole), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     tbWhole.Focus();
@@ -147,17 +146,17 @@ namespace CatalyticConverterManagement
             }
             if (txtHalf != "")
             {
-                if (!int.TryParse(txtHalf, out half))
+                if (!uint.TryParse(txtHalf, out half))
                 {
                     MessageBox.Show(string.Format("Bad Whole Value '{0}' ", txtHalf), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     tbHalf.Focus();
                     return;
                 }
             }
-            PurchaseList.Insert(0,new PurchaseEntry() { Converter = conv, ManualPriceSet = false, Count = whole, HalfCount = half });
+            vm.AddCurrentPurchaseEntry();
+
+            //PurchaseList.Insert(0,new PurchaseEntry() { Converter = conv, ManualPriceSet = false, WholeCount = whole, HalfCount = half });
             tbSearch.Text = "";
-            tbWhole.Text = "";
-            tbHalf.Text = "";
             list.SelectedItem = null;
             tbSearch.Focus();
         }
@@ -170,23 +169,26 @@ namespace CatalyticConverterManagement
             {
                 waitForEnterRelease = true;
             }
+            if (sender is TextBox)
+            {
+                var tb = (sender as TextBox);
+                tb.Select(0, tb.Text.Length);
+            }
         }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 
     class PurchacePageViewModel : INotifyPropertyChanged
     {
         private ICollectionView _converters;
+        private Purchase _purchase;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
+        
         public void UpdateFilter(string filter)
         {
             _filter = filter;
@@ -194,10 +196,13 @@ namespace CatalyticConverterManagement
         }
         string _filter="";
 
-        public PurchacePageViewModel(List<Converter> converters)
+        public PurchacePageViewModel(List<Converter> converters, Purchase purchase)
         {
             _converters = CollectionViewSource.GetDefaultView(converters);
             _converters.Filter = ConverterListFilter;
+            _purchase = purchase;
+            PurchaseList = new ObservableCollection<PurchaseEntry>(purchase.Entries);
+            _currPurchaseEntry = new CatalyticConverterManagement.PurchaseEntry();
         }
 
         bool ConverterListFilter(object item)
@@ -214,7 +219,63 @@ namespace CatalyticConverterManagement
 
             return true;
         }
+
+        internal void AddCurrentPurchaseEntry()
+        {
+            PurchaseList.Insert(0, _currPurchaseEntry);
+            CurretPurchaseEntry = new CatalyticConverterManagement.PurchaseEntry();
+        }
+
+        public PurchaseEntry CurretPurchaseEntry
+        {
+            get
+            {
+                return _currPurchaseEntry;
+            }
+            set
+            {
+                if(value != _currPurchaseEntry)
+                {
+                    _currPurchaseEntry = value;
+                    OnPropertyChanged("CurretPurchaseEntry");
+                }
+            }
+        }
+
+        public Converter CurretPurchaseEntryConveretr
+        {
+            get
+            {
+                return _currPurchaseEntry.Converter;
+            }
+            set
+            {
+                if (value != _currPurchaseEntry.Converter)
+                {
+                    _currPurchaseEntry.Converter = value;
+                    OnPropertyChanged("CurretPurchaseEntryConveretr");
+                }
+            }
+        }
+
+
+
         public ICollectionView Converters { get { return _converters; } }
+
+        private DateTime date = DateTime.Today;
+
+        private PurchaseEntry _currPurchaseEntry;
+        public int WholeCount
+        {
+            get { return _currPurchaseEntry.WholeCount; }
+            set { _currPurchaseEntry.WholeCount = value; }
+        }
+
+        public int HalfCount
+        {
+            get { return _currPurchaseEntry.HalfCount; }
+            set { _currPurchaseEntry.HalfCount = value; }
+        }
 
         public DateTime Date
         {
@@ -229,6 +290,49 @@ namespace CatalyticConverterManagement
             }
         }
 
-        private DateTime date = DateTime.Today;
+        public double Pt
+        {
+            get { return (double)_purchase.PlatinumPrice; }
+            set { _purchase.PlatinumPrice = value; }
+        }
+
+        public double Pd
+        {
+            get { return (double)_purchase.PalladiumPrice; }
+            set { _purchase.PalladiumPrice = value; }
+        }
+
+        public double Rh
+        {
+            get { return (double)_purchase.RhodiumPrice; }
+            set { _purchase.RhodiumPrice = value; }
+        }
+
+        public double DollarExchange
+        {
+            get { return (double)_purchase.DollarToShekel; }
+            set { _purchase.DollarToShekel = value; }
+        }
+
+        public double EuroExchange
+        {
+            get { return (double)_purchase.EuroToShekel; }
+            set { _purchase.EuroToShekel = value; }
+        }
+
+        public ObservableCollection<PurchaseEntry> PurchaseList { get; set; }
+
+        #region Property change
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        #endregion
+
     }
 }

@@ -29,11 +29,11 @@
                 <DatePicker Margin="5" SelectedDate="{Binding Date}"></DatePicker>
             </StackPanel>
 
-            <ListView Name="lstPurchase" Grid.Row="2" Margin="5" >
+            <ListView Name="lstPurchase" Grid.Row="2" Margin="5" ItemsSource="{Binding PurchaseList}">
                 <ListView.View>
                     <GridView x:Name="grdNames">
                         <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Converter.FullName}"/>
-                        <GridViewColumn Header="Whole"  DisplayMemberBinding="{Binding Count}"/>
+                        <GridViewColumn Header="Whole"  DisplayMemberBinding="{Binding WholeCount}"/>
                         <GridViewColumn Header="Half"  DisplayMemberBinding="{Binding HalfCount}"/>
                     </GridView>
                 </ListView.View>
@@ -87,7 +87,7 @@
                 </Grid.RowDefinitions>
                 <TextBox Name="tbSearch" GotFocus="GotFocus" TextChanged="TextBox_TextChanged" KeyUp="TextBox_KeyUp" />
                 <ListBox Name="list" Grid.Row="1"  Height="200" ItemsSource="{Binding Converters}" 
-                         DisplayMemberPath="FullName" KeyUp="list_KeyUp">
+                         DisplayMemberPath="FullName" KeyUp="list_KeyUp" SelectedItem="{Binding Path=CurretPurchaseEntryConveretr, Mode=OneWayToSource}" VerticalAlignment="Top">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel/>
@@ -98,18 +98,17 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock VerticalAlignment="Center">Whole: </TextBlock>
-                        <TextBox GotFocus="GotFocus" Name="tbWhole" Margin="3" Width="100" Height="30" KeyUp="tbWhole_KeyUp"></TextBox>
+                        <TextBox GotFocus="GotFocus" Text="{Binding CurretPurchaseEntry.WholeCount, Mode=TwoWay}" Name="tbWhole" Margin="3" Width="100" Height="30" KeyUp="tbWhole_KeyUp"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock VerticalAlignment="Center">Half: </TextBlock>
-                        <TextBox GotFocus="GotFocus" Name="tbHalf" Margin="3" Width="100" Height="30" KeyUp="tbHalf_KeyUp"></TextBox>
-
+                        <TextBox GotFocus="GotFocus" Text="{Binding CurretPurchaseEntry.HalfCount, Mode=TwoWay}" Name="tbHalf" Margin="3" Width="100" Height="30" KeyUp="tbHalf_KeyUp"></TextBox>
                     </StackPanel>
                     <Button Name="btnAdd" Click="btnAdd_Click" Margin="5" Padding="2" HorizontalAlignment="Center" Height="50" Width="130">Add</Button>
                     
                 </StackPanel>
             </Grid>
-            <local:ConverterControl x:Name="ctrlConv" Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=list}"></local:ConverterControl>
+            <local:ConverterControl x:Name="ctrlConv" Grid.Row="1" DataContext="{Binding CurretPurchaseEntryConveretr, Mode=OneWay}"></local:ConverterControl>
             
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" >
@@ -125,7 +124,7 @@
                 </Style>
             </Grid.Resources>
             
-            <Button Grid.Column="0" HorizontalAlignment="Left">Save</Button>
+            <Button Grid.Column="0" HorizontalAlignment="Left" Click="Save_Click">Save</Button>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
             <Button >Create Report</Button>
             <!--<Button >Exit</Button>-->
