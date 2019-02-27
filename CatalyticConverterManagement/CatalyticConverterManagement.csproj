@@ -74,8 +74,6 @@
     <Compile Include="ConverterControl.xaml.cs">
       <DependentUpon>ConverterControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AnalysisControlViewModel.cs" />
-    <Compile Include="ConverterControlViewModel.cs" />
     <Compile Include="PurchacePage.xaml.cs">
       <DependentUpon>PurchacePage.xaml</DependentUpon>
     </Compile>
